@@ -6,7 +6,7 @@
 /*   By: sabsanto <sabsanto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:40:52 by sabsanto          #+#    #+#             */
-/*   Updated: 2025/03/24 16:44:44 by sabsanto         ###   ########.fr       */
+/*   Updated: 2025/03/25 21:47:15 by sabsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	main(int argc, char **argv)
 	vars.offset_x = WIN_WIDTH / 2;
 	vars.offset_y = WIN_HEIGHT / 2;
 	vars.projection = 0;
-	draw_map(&vars);
-	mlx_key_hook(vars.win, key_hook, &vars);
+	mlx_hook(vars.win, 2, 1L<<0, handle_keypress, &vars);
 	mlx_hook(vars.win, 17, 0, close_window, &vars);
+	draw_map(&vars);
 	mlx_loop(vars.mlx);
 	return (0);
 }

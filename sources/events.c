@@ -6,7 +6,7 @@
 /*   By: sabsanto <sabsanto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:40:28 by sabsanto          #+#    #+#             */
-/*   Updated: 2025/03/24 16:47:17 by sabsanto         ###   ########.fr       */
+/*   Updated: 2025/03/25 21:50:16 by sabsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,42 +37,45 @@ int	close_window(t_vars *vars)
 	return (0);
 }
 
-void	handle_projection(t_vars *vars)
+static void	redraw(t_vars *vars)
 {
-	vars->projection = !vars->projection;
 	mlx_clear_window(vars->mlx, vars->win);
 	draw_map(vars);
 }
 
-void	handle_zoom(int keycode, t_vars *vars)
+static void	handle_rotation(int keycode, t_vars *vars)
 {
-	if (keycode == 65451 && vars->zoom < 100)
-		vars->zoom += 1;
-	else if (keycode == 65453 && vars->zoom > 1)
-		vars->zoom -= 1;
-	mlx_clear_window(vars->mlx, vars->win);
-	draw_map(vars);
-}
-
-int	key_hook(int keycode, t_vars *vars)
-{
-	if (keycode == ESC_KEY)
-		close_window(vars);
-	else if (keycode == 65451 || keycode == 65453)
-		handle_zoom(keycode, vars);
-	else if (keycode == 112)
-		handle_projection(vars);
-	else if (keycode == 65361)
+	if (keycode == KEY_LEFT)
 		vars->angle_y -= 0.1;
-	else if (keycode == 65363)
+	else if (keycode == KEY_RIGHT)
 		vars->angle_y += 0.1;
-	else if (keycode == 65362)
+	else if (keycode == KEY_UP)
 		vars->angle_x -= 0.1;
-	else if (keycode == 65364)
+	else if (keycode == KEY_DOWN)
 		vars->angle_x += 0.1;
+}
+
+int	handle_keypress(int keycode, t_vars *vars)
+{
+	if (keycode == KEY_ESC)
+		return (close_window(vars));
+	else if (keycode == KEY_P)
+		vars->projection = !vars->projection;
+	else if (keycode == KEY_PLUS || keycode == KEY_NUMPAD_P)
+	{
+		if (vars->zoom < 100)
+			vars->zoom += 1;
+	}
+	else if (keycode == KEY_MINUS || keycode == KEY_NUMPAD_M)
+	{
+		if (vars->zoom > 1)
+			vars->zoom -= 1;
+	}
 	else
+	{
+		handle_rotation(keycode, vars);
 		return (0);
-	mlx_clear_window(vars->mlx, vars->win);
-	draw_map(vars);
+	}
+	redraw(vars);
 	return (0);
 }

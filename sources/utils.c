@@ -6,7 +6,7 @@
 /*   By: sabsanto <sabsanto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:03:24 by sabsanto          #+#    #+#             */
-/*   Updated: 2025/03/24 17:03:31 by sabsanto         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:36:21 by sabsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	draw_map(t_vars *vars)
 		{
 			if (x < vars->map->width - 1)
 				draw_line(vars,
-					iso_projection(x, y, vars->map->matrix[y][x], vars),
-					iso_projection(x + 1, y, vars->map->matrix[y][x + 1], vars));
+					iso_proj(x, y, vars->map->matrix[y][x], vars),
+					iso_proj(x + 1, y, vars->map->matrix[y][x + 1], vars));
 			if (y < vars->map->height - 1)
 				draw_line(vars,
-					iso_projection(x, y, vars->map->matrix[y][x], vars),
-					iso_projection(x, y + 1, vars->map->matrix[y + 1][x], vars));
+					iso_proj(x, y, vars->map->matrix[y][x], vars),
+					iso_proj(x, y + 1, vars->map->matrix[y + 1][x], vars));
 			x++;
 		}
 		y++;
