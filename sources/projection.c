@@ -6,7 +6,7 @@
 /*   By: sabsanto <sabsanto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 16:11:36 by sabsanto          #+#    #+#             */
-/*   Updated: 2025/03/25 19:36:18 by sabsanto         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:55:12 by sabsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@ t_point	iso_proj(int x, int y, int z, t_vars *vars)
 	t_point	point;
 	double	angle;
 
-	angle = M_PI / 6;
-	point.x = (x - y) * cos(angle) * vars->zoom;
-	point.y = (x + y) * sin(angle) * vars->zoom - (z * vars->zoom);
+	angle = vars->angle_y;
+	point.x = (x - y) * cos(angle) * vars->zoom + vars->offset_x;
+	point.y = (x + y) * sin(angle) * vars->zoom - (z * vars->zoom) 
+		+ vars->offset_y;
 	point.z = z;
+	point.color = DEFAULT_COLOR;
 	return (point);
 }
 
@@ -38,10 +40,10 @@ static void	init_sign(t_point *sign, t_point p0, t_point p1)
 
 static void	draw_pixel(t_vars *vars, t_point cur)
 {
-	mlx_pixel_put(vars->mlx, vars->win, cur.x, cur.y, 0xFFFFFF);
+	mlx_pixel_put(vars->mlx, vars->win, cur.x, cur.y, cur.color);
 }
 
-static void	up_position(t_point *cur, t_point sign, int *error, t_point delta)
+static void	update_position(t_point *cur, t_point sign, int *error, t_point delta)
 {
 	int	e2;
 
@@ -73,6 +75,6 @@ void	draw_line(t_vars *vars, t_point p0, t_point p1)
 	while (cur.x != p1.x || cur.y != p1.y)
 	{
 		draw_pixel(vars, cur);
-		up_position(&cur, sign, &error[0], delta);
+		update_position(&cur, sign, &error[0], delta);
 	}
 }

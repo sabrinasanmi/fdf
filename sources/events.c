@@ -6,7 +6,7 @@
 /*   By: sabsanto <sabsanto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 20:40:28 by sabsanto          #+#    #+#             */
-/*   Updated: 2025/03/25 21:50:16 by sabsanto         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:55:39 by sabsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	redraw(t_vars *vars)
 	draw_map(vars);
 }
 
-static void	handle_rotation(int keycode, t_vars *vars)
+static void	handle_rotation_keys(int keycode, t_vars *vars)
 {
 	if (keycode == KEY_LEFT)
 		vars->angle_y -= 0.1;
@@ -73,7 +73,7 @@ int	handle_keypress(int keycode, t_vars *vars)
 	}
 	else
 	{
-		handle_rotation(keycode, vars);
+		handle_rotation_keys(keycode, vars);
 		return (0);
 	}
 	redraw(vars);
