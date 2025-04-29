@@ -6,7 +6,7 @@
 /*   By: sabsanto <sabsanto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 19:49:08 by sabsanto          #+#    #+#             */
-/*   Updated: 2025/04/25 19:03:03 by sabsanto         ###   ########.fr       */
+/*   Updated: 2025/04/29 03:17:45 by sabsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static double	get_radians(double angle)
 	return (angle * 3.141592654 / 180);
 }
 
-void	get_base_vectors(t_vector2 *u, t_vector2 *v, t_settings *settings)
+void	get_base_vectors(t_vec2 *u, t_vec2 *v, t_settings *settings)
 {
 	double	radians;
 
@@ -27,10 +27,8 @@ void	get_base_vectors(t_vector2 *u, t_vector2 *v, t_settings *settings)
 	u->y = settings->elips_b * sin(radians);
 	v->x = settings->elips_a * sin(radians);
 	v->y = -settings->elips_b * cos(radians);
-
 	u->x *= settings->zoom;
 	u->y *= settings->zoom;
 	v->x *= settings->zoom;
 	v->y *= settings->zoom;
 }
-

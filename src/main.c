@@ -6,21 +6,19 @@
 /*   By: sabsanto <sabsanto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:03:24 by sabsanto          #+#    #+#             */
-/*   Updated: 2025/04/29 00:52:15 by sabsanto         ###   ########.fr       */
+/*   Updated: 2025/04/29 03:31:32 by sabsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <MLX42/MLX42.h>
 #include "fdf.h"
 #include "ft_printf.h"
-
 #include <stdio.h>
-
 #include <stdlib.h>
 
-t_settings get_default_settings(void)
+t_settings	get_default_settings(void)
 {
-	t_settings res;
+	t_settings	res;
 
 	res.center_x = 500;
 	res.center_y = 500;
@@ -32,11 +30,22 @@ t_settings get_default_settings(void)
 	return (res);
 }
 
+int	setup_fdf(mlx_t **mlx, mlx_image_t **image)
+{
+	*mlx = mlx_init(WIDTH, HEIGHT, "fdf", false);
+	if (!*mlx)
+		return (0);
+	*image = mlx_new_image(*mlx, WIDTH, HEIGHT);
+	if (!*image)
+		return (0);
+	return (1);
+}
+
 int	main(int argc, char **argv)
 {
 	mlx_t		*mlx;
 	mlx_image_t	*image;
-	t_pt3	**map;
+	t_pt3		**map;
 	t_settings	settings;
 
 	if (argc != 2)
@@ -44,11 +53,7 @@ int	main(int argc, char **argv)
 		ft_printf("Usage: ./fdf <fdf file to show>\n");
 		return (0);
 	}
-	mlx = mlx_init(WIDTH, HEIGHT, "fdf", false);
-	if (!mlx)
-		return (0);
-	image = mlx_new_image(mlx, WIDTH, HEIGHT);
-	if (!image)
+	if (!setup_fdf(&mlx, &image))
 		return (0);
 	settings = get_default_settings();
 	map = parse_map(argv[1], &settings);
