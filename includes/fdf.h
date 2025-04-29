@@ -6,15 +6,19 @@
 /*   By: sabsanto <sabsanto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 21:08:41 by sabsanto          #+#    #+#             */
-/*   Updated: 2025/04/29 03:49:56 by sabsanto         ###   ########.fr       */
+/*   Updated: 2025/04/29 04:32:02 by sabsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include <MLX42/MLX42.h>
+# include <math.h>
+# include <stdlib.h>
+# include <stdbool.h>
 # include <stdint.h>
+
+# include "MLX42/MLX42.h"
 
 # define WIDTH 1000
 # define HEIGHT 1000
@@ -71,14 +75,23 @@ typedef struct s_param
 	t_settings	*cfg;
 }	t_param;
 
+typedef struct s_fdf
+{
+	mlx_t		*mlx;
+	mlx_image_t	*image;
+	t_pt3		**map;
+	t_settings	settings;
+	t_param		*param;
+}	t_fdf;
+
 t_pt3	**parse_map(char *filename, t_settings *settings);
 void	render(mlx_image_t *image, t_pt3 **map, t_settings *cfg, mlx_t *mlx);
-void	ft_hook(mlx_t *mlx, mlx_image_t *image, t_pt3 **map, t_settings *cfg);
+t_param	*ft_hook(mlx_t *mlx, mlx_image_t *image, t_pt3 **map, t_settings *cfg);
 
 int		get_color(t_color color);
 void	get_base_vectors(t_vec2 *u, t_vec2 *v, t_settings *settings);
 
 void	free_map(t_pt3 **map, int height);
-void	ft_cleanup(t_param **param);
+void	cleanup_resources(t_fdf *fdf);
 
 #endif

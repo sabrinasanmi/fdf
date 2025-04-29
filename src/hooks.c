@@ -6,7 +6,7 @@
 /*   By: sabsanto <sabsanto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:22:59 by sabsanto          #+#    #+#             */
-/*   Updated: 2025/04/29 00:52:15 by sabsanto         ###   ########.fr       */
+/*   Updated: 2025/04/29 03:57:29 by sabsanto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_scrollhook(double xdelta, double ydelta, void *params)
 	render(p->image, p->map, p->cfg, p->mlx);
 }
 
-void	ft_hook(mlx_t *mlx, mlx_image_t *image, t_pt3 **map, t_settings *cfg)
+t_param	*ft_hook(mlx_t *mlx, mlx_image_t *image, t_pt3 **map, t_settings *cfg)
 {
 	static t_param	*param = NULL;
 
@@ -78,7 +78,7 @@ void	ft_hook(mlx_t *mlx, mlx_image_t *image, t_pt3 **map, t_settings *cfg)
 	{
 		param = calloc(sizeof(t_param), 1);
 		if (!param)
-			return ;
+			return (NULL);
 		param->mlx = mlx;
 		param->cfg = cfg;
 		param->map = map;
@@ -86,4 +86,5 @@ void	ft_hook(mlx_t *mlx, mlx_image_t *image, t_pt3 **map, t_settings *cfg)
 	}
 	mlx_loop_hook(mlx, ft_keyhook, param);
 	mlx_scroll_hook(mlx, ft_scrollhook, param);
+	return (param);
 }

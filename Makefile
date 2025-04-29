@@ -6,14 +6,14 @@
 #    By: sabsanto <sabsanto@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/21 19:54:47 by sabsanto          #+#    #+#              #
-#    Updated: 2025/04/28 20:25:24 by sabsanto         ###   ########.fr        #
+#    Updated: 2025/04/29 04:22:38 by sabsanto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
 SRC_DIR = src/
-SRC = $(addprefix $(SRC_DIR), colors.c hooks.c main.c parser.c render.c utils.c)
+SRC = $(addprefix $(SRC_DIR), cleanup.c colors.c hooks.c main.c parser.c render.c utils.c)
 
 LIBFT = libft/libft.a
 MLX42_AR = MLX42/build/libmlx42.a
